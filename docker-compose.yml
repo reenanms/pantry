@@ -1,0 +1,16 @@
+services:
+  pantry:
+    build: .
+    container_name: pantry
+    ports:
+      - "${PORT:-6150}:6150"
+    environment:
+      - PORT=6150
+      - HOST=0.0.0.0
+      - DB_PATH=/app/data/pantry.db
+    volumes:
+      - pantry-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  pantry-data:

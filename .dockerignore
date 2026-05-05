@@ -1,0 +1,12 @@
+node_modules
+dist
+*.db
+*.db-wal
+*.db-shm
+.git
+.vscode
+.idea
+.env
+api/drizzle
+api/tst
+web/tst

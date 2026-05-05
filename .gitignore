@@ -141,3 +141,27 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# ===========================================
+# Pantry-specific
+# ===========================================
+
+# SQLite database files
+*.db
+*.db-wal
+*.db-shm
+
+# Drizzle ORM migrations (auto-generated)
+api/drizzle/
+
+# Runtime data directory
+data/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
