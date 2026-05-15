@@ -1,4 +1,4 @@
-const BASE = '';
+const BASE = import.meta.env.API_URL || '';
 
 async function request<T>(url: string, options?: RequestInit): Promise<T> {
   const headers: Record<string, string> = {};

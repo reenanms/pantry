@@ -4,7 +4,7 @@ import { dirname } from 'path';
 import { drizzle } from 'drizzle-orm/better-sqlite3';
 import * as schema from './schema.js';
 
-const DEFAULT_DB_PATH = process.env.DB_PATH || './data/pantry.db';
+const DEFAULT_DB_PATH = process.env.API_DB_PATH || './data/pantry.db';
 
 type AppDb = ReturnType<typeof drizzle<typeof schema>>;
 

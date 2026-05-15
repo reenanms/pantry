@@ -1,9 +1,5 @@
-import { existsSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
-import fastifyStatic from '@fastify/static';
 import { createDatabase } from './db/connection.js';
 import { RouteService } from './services/route-service.js';
 import { ResourceService } from './services/resource-service.js';
@@ -26,18 +22,6 @@ export function buildServer(dbPath?: string) {
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
-
-  // Serve frontend static files in production (Docker)
-  const currentDir = dirname(fileURLToPath(import.meta.url));
-  const publicDir = join(currentDir, '..', 'public');
-
-  if (existsSync(publicDir)) {
-    app.register(fastifyStatic, {
-      root: publicDir,
-      prefix: '/admin/',
-      decorateReply: false,
-    });
-  }
 
   // Simulation hooks (must be registered before routes)
   registerStaticResponsePlugin(app, routeService);

@@ -1,13 +1,13 @@
 services:
   pantry:
-    build: .
+    build:
+      context: .
+      args:
+        API_URL: ${API_URL:-http://localhost:3000}
     container_name: pantry
     ports:
-      - "${PORT:-6150}:6150"
-    environment:
-      - PORT=6150
-      - HOST=0.0.0.0
-      - DB_PATH=/app/data/pantry.db
+      - "3000:3000"
+      - "80:80"
     volumes:
       - pantry-data:/app/data
     restart: unless-stopped

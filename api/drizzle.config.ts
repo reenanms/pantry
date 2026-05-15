@@ -5,6 +5,6 @@ export default defineConfig({
   out: './drizzle',
   dialect: 'sqlite',
   dbCredentials: {
-    url: process.env.DB_PATH || './data/pantry.db',
+    url: process.env.API_DB_PATH || './data/pantry.db',
   },
 });

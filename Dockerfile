@@ -6,6 +6,10 @@
 # --- Stage 1: Build frontend ---
 FROM node:22-alpine AS frontend-build
 
+# A variável precisa estar NESTE stage para o Vite conseguir ler no 'npm run build'!
+ARG API_URL
+ENV API_URL=$API_URL
+
 WORKDIR /app/web
 COPY web/package.json web/package-lock.json ./
 RUN npm ci
@@ -26,9 +30,9 @@ FROM node:22-alpine
 
 WORKDIR /app
 
-# Install production deps only
+# Install production deps + static server
 COPY api/package.json api/package-lock.json ./
-RUN npm ci --omit=dev
+RUN npm ci --omit=dev && npm install -g serve
 
 # Copy compiled backend
 COPY --from=backend-build /app/api/dist ./dist
@@ -40,13 +44,15 @@ COPY --from=frontend-build /app/web/dist ./public
 RUN mkdir -p /app/data
 
 # Environment defaults
-ENV PORT=6150
-ENV HOST=0.0.0.0
-ENV DB_PATH=/app/data/pantry.db
+ENV API_PORT=3000
+ENV API_HOST=0.0.0.0
+ENV API_DB_PATH=/app/data/pantry.db
 
-EXPOSE 6150
+EXPOSE 3000
+EXPOSE 80
 
 # Volume for persistent database
 VOLUME ["/app/data"]
 
-CMD ["node", "dist/index.js"]
+# Run both: API and Frontend
+CMD ["sh", "-c", "serve -s public -l 80 & node dist/index.js"]

@@ -29,7 +29,7 @@ The easiest way to get started is using Docker Compose:
 ```bash
 docker compose up -d
 ```
-Access the **Admin UI** at `http://localhost:6151` and the **API** at `http://localhost:6150`.
+Access the **Admin UI** at `http://localhost:80` and the **API** at `http://localhost:3000`.
 
 ### Manual Installation
 
@@ -53,12 +53,12 @@ cd web && npm install && npm run dev
 Pantry listens to all `/api/*` paths. If you hit an undefined route with a `POST`, it creates it immediately.
 
 ```bash
-curl -X POST http://localhost:6150/api/projects \
+curl -X POST http://localhost:3000/api/projects \
   -d '{"title": "Pantry", "status": "active"}'
 ```
 
 ### 2. Manage via Admin
-Open `http://localhost:6151` to:
+Open `http://localhost:80` to:
 - See your new `/api/projects` route.
 - Add a **500ms delay** to test your spinners.
 - Switch the route to **Static Mode** to simulate a "503 Service Unavailable" error.
@@ -71,9 +71,10 @@ Copy `.env.example` to `.env` to customize ports and database location.
 
 | Variable | Default | Description |
 |---|---|---|
-| `PORT` | `6150` | Primary API port |
-| `DB_PATH` | `./data/pantry.db` | SQLite storage path |
-| `ADMIN_PORT` | `6151` | Admin UI development port |
+| `API_URL` | `http://localhost:3000` | The backend API URL for the frontend to connect to |
+| `API_PORT` | `3000` | Primary API port |
+| `API_DB_PATH` | `/app/data/pantry.db` | SQLite storage path |
+| `ADMIN_PORT` | `80` | Admin UI port |
 
 ---
 
